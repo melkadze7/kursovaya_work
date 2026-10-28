@@ -1,22 +1,23 @@
-"""Построить воспроизводимую таблицу AST-срабатываний до и после правки."""
+
+"""Сравнение результатов анализа до и после исправлений."""
 
 from __future__ import annotations
 
 from pathlib import Path
 
-from static_guard import analyze_file, counts
-
+from staticcheck import analyze_file, counts
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
 def main() -> None:
-    """Вывести сравнение пяти правил на двух учебных файлах."""
-    before = counts(analyze_file(ROOT / "samples/before.py"))
-    after = counts(analyze_file(ROOT / "samples/after.py"))
+    before = counts(analyze_file(ROOT / "examples/before.py"))
+    after = counts(analyze_file(ROOT / "examples/after.py"))
+
     print("Правило | До | После")
     for rule in before:
         print(f"{rule:7} | {before[rule]:2} | {after[rule]:5}")
+
     print(f"Всего: {sum(before.values())} -> {sum(after.values())}")
 
 

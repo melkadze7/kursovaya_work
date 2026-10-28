@@ -5,7 +5,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from static_guard import TicketBoard, ValidationError
+from staticcheck import TicketBoard, ValidationError
 
 
 class TicketBoardTests(unittest.TestCase):

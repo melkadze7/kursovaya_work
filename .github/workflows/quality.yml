@@ -1,24 +1,35 @@
+
 name: Quality - Python static checks
+
 on:
   push:
   pull_request:
+
 jobs:
   quality:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+
       - name: Install package and scanners
         run: python -m pip install -e . -r requirements-dev.txt
+
       - name: Unit tests
         run: python -m unittest discover -s tests -v
+
       - name: Study AST comparison
-        run: python tools/compare.py
+        run: python -m staticcheck.compare
+
       - name: Ruff on corrected project
-        run: ruff check src/static_guard samples/after.py tools/compare.py
+        run: ruff check staticcheck examples/after.py
+
       - name: Bandit on corrected project
-        run: bandit -q -r src/static_guard samples/after.py
+        run: bandit -q -r staticcheck examples/after.py
+
       - name: Syntax compilation
-        run: python -m compileall -q src/static_guard samples/after.py tests
+        run: python -m compileall -q staticcheck examples/after.py tests

@@ -1,9 +1,10 @@
+
 """Проверки пяти статических правил на минимальных примерах."""
 
 import unittest
 from pathlib import Path
 
-from static_guard import analyze_file, analyze_source, counts
+from staticcheck import analyze_file, analyze_source, counts
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -48,10 +49,10 @@ class AnalyzerTests(unittest.TestCase):
         self.assertEqual(analyze_source("API_KEY = environ.get('KEY')\n"), [])
 
     def test_sample_before_has_five_findings(self):
-        self.assertEqual(len(analyze_file(ROOT / "samples/before.py")), 5)
+        self.assertEqual(len(analyze_file(ROOT / "examples/before.py")), 5)
 
     def test_sample_after_has_zero_findings(self):
-        self.assertEqual(analyze_file(ROOT / "samples/after.py"), [])
+        self.assertEqual(analyze_file(ROOT / "examples/after.py"), [])
 
     def test_counts_return_five_rules(self):
         self.assertEqual(len(counts([])), 5)
@@ -63,3 +64,4 @@ class AnalyzerTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+

@@ -9,7 +9,8 @@ description = "Учебный пример методов статическог
 requires-python = ">=3.11"
 
 [tool.setuptools.packages.find]
-where = ["src"]
+where = ["."]
+include = ["staticcheck*"]
 
 [tool.ruff]
 target-version = "py311"
